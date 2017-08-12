@@ -1,9 +1,11 @@
 # Bash Pattern
 
 The contract here is that given a bash script of aws commands, a container
-from here will run them.
+from here will run them.  
+
+Initialize the system by running `bash init.sh`.  
 
 Go to the directory that holds the deploy file and all files it utilizes and
-run myAws ${bash_script}.
+run myAws ${bash_script}.  
 
-Or for interactivity, just run myAws.
+Or for interactivity, just run myAws.  
