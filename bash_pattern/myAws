@@ -4,6 +4,6 @@ echo "Entering aws-deployment"
 docker run -it \
   -v ~/.aws/:/home/aws/.aws/:ro \
   -v `pwd`:/home/aws/current:ro \
-  -e AWS_DEFAULT_PROFILE=deployment \
+  -e AWS_DEFAULT_PROFILE=school \
   aws_container bash $1
 echo "Leaving aws-deployment"
