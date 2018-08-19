@@ -1,0 +1,32 @@
+#!/usr/bin/env python3.7
+import click
+from functools import wraps
+import os
+
+def click_exception(f):
+    @wraps(f)
+    def output(*args, **kwargs):
+        try:
+            f(*args, **kwargs)
+        except Exception as e:
+            raise click.ClickException(str(e))
+    return output
+
+@click.group()
+def cli():
+    pass
+
+@click.command()
+@click.option("--export-type", "-e", type=click.Choice(["cfn"]), default="cfn")
+@click.argument("name")
+@click_exception
+def import_value(export_type, name):
+    from lib_files import import_value
+    if export_type == "cfn":
+            print(import_value.cloudformation_export(name))
+
+
+cli.add_command(import_value)
+
+if __name__ == "__main__":
+    cli()
