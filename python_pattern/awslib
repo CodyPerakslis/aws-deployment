@@ -1,0 +1,13 @@
+#!/usr/bin/env python3.7
+import click
+from lib_files import *
+
+@click.group()
+def cli():
+    pass
+
+cli.add_command(import_value.click_import_value)
+cli.add_command(set_config.click_set_config)
+
+if __name__ == "__main__":
+    cli()

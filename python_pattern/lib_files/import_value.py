@@ -1,8 +1,13 @@
 import boto3
+import click
+from .click_tools import click_defaults
 
-class ValueNotFound(Exception):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+@click.option("--export-type", "-e", type=click.Choice(["cfn"]), default="cfn")
+@click.argument("name")
+@click_defaults
+def click_import_value(export_type, name):
+    if export_type == "cfn":
+            print(cloudformation_export(name))
 
 def cloudformation_export(name):
     cfn = boto3.client("cloudformation")
@@ -12,4 +17,4 @@ def cloudformation_export(name):
         for export in page["Exports"]:
             if export["Name"] == name:
                 return export["Value"]
-    raise ValueNotFound("{:s} is not a cloudformation export.".format(name))
+    raise Exception("{:s} is not a cloudformation export.".format(name))
